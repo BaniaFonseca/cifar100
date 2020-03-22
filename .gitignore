@@ -28,6 +28,7 @@ share/python-wheels/
 .idea
 MANIFEST
 data/
+!data/.gitkeep
 ~data
 # PyInstaller
 #  Usually these files are written by a python script from a template
