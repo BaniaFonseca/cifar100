@@ -1,11 +1,11 @@
 import tensorflow_datasets as tfds
-from config import *
+from settings import *
 
 class DataSet:
 
     def __init__(self, batch_size=128):
         download = lambda data_dir: not data_dir.joinpath('cifar100').exists()
-        self.ds, self.ds_info = tfds.load('cifar100', data_dir=data_dir, batch_size=batch_size, shuffle_files=True,
+        self.ds, self.ds_info = tfds.load(name='cifar100', data_dir=data_dir, batch_size=batch_size, shuffle_files=True,
                                   with_info=True, download=download)
 
     def load_trainset(self):

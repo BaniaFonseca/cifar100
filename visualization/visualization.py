@@ -27,9 +27,4 @@ class Visualization(DataSet):
                 plt.yticks([])
                 plt.xlabel(label)
             break
-        plt.show()
-
-if __name__ == '__main__':
-    vs = Visualization()
-    vs.view_train_images()
-    vs.view_test_images()
+        plt.show()    
