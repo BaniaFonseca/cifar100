@@ -46,17 +46,19 @@ class Train:
         print("Saved model to disk")
 
         plt.plot(history.history['accuracy'])
+        plt.plot(history.history['val_acc'])
         plt.title('Model accuracy')
         plt.ylabel('Accuracy')
         plt.xlabel('Epoch')
-        plt.legend(['Train'], loc='upper left')
+        plt.legend(['Train', 'Validation'], loc='upper left')
         plt.savefig(str(model_dir.joinpath('acc.png')))
         plt.close()
 
 
         plt.plot(history.history['loss'])
+        plt.plot(history.history['val_loss'])
         plt.title('Model loss')
         plt.ylabel('Loss')
         plt.xlabel('Epoch')
-        plt.legend(['Train'], loc='upper left')
+        plt.legend(['Train', 'Validation'], loc='upper left')
         plt.savefig(str(model_dir.joinpath('loss.png')))
