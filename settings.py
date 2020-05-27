@@ -1,20 +1,19 @@
+from os.path import abspath, dirname, join
 from pathlib import Path
 
-class AbsolutePathBuilder:
+def  get_absolute_path(child_dir, parent_dir):        
+    """
+        given a child_dir along side with its parent_dir
+        build the absolute path of the child_dir 
+    """
+    path = ['/']
+    for dir in str(dirname(abspath(__file__))).split('/'):
+        path.append('/'+dir)
+        if str(dir) == parent_dir:
+            path.append('/'+child_dir)
+            break
 
-    def __init__(self, dir_name, dir_parrent_name):
-        self.dir_name = dir_name
-        self.dir_parrent_name = dir_parrent_name
+    return Path(''.join(path))
 
-    def  get_absolute_path(self):
-        path = ['/']
-        for dir in str(Path('.').absolute()).split('/'):
-            path.append('/'+dir)
-            if str(dir) == self.dir_parrent_name:
-                path.append('/'+self.dir_name)
-                break
-
-        return Path(''.join(path))
-
-apb = AbsolutePathBuilder(dir_name='data', dir_parrent_name='cifar100')
-data_dir = apb.get_absolute_path()
+data_dir = get_absolute_path(child_dir='data', parent_dir='cifar100')
+model_dir = get_absolute_path(child_dir='model', parent_dir='cifar100')

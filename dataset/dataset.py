@@ -3,10 +3,12 @@ from settings import *
 
 class DataSet:
 
-    def __init__(self, batch_size=128):
+    def __init__(self, batch_size=512):
         download = lambda data_dir: not data_dir.joinpath('cifar100').exists()
-        self.ds, self.ds_info = tfds.load(name='cifar100', data_dir=data_dir, batch_size=batch_size, shuffle_files=True,
-                                  with_info=True, download=download)
+        self.ds, self.ds_info = tfds.load(name='cifar100', 
+                                            data_dir=data_dir, 
+                                            batch_size=batch_size, shuffle_files=True,
+                                            with_info=True, download=download)
 
     def load_trainset(self):
         return self.ds[tfds.Split.TRAIN]
