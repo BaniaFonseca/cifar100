@@ -25,17 +25,17 @@ class Xception:
         inputs = self.do_conv2d(inputs=inputs, filters=64, kernel_size=3)
         
         short_cut = self.do_conv2d(inputs=inputs, filters=128, kernel_size=3, 
-                                    useReLu=False, useMaxPooling=True)
+                                    useReLu=False, useMaxPooling=False)
         inputs = self.do_separableconv2d(inputs=inputs, filters=128, kernel_size=3)
         inputs = self.do_separableconv2d(inputs=inputs, filters=128, kernel_size=3,
-                                        useReLu=False, useMaxPooling=True)
+                                        useReLu=False, useMaxPooling=False)
         inputs = self.add([inputs, short_cut])
         
         inputs = self.do_separableconv2d(inputs=inputs, filters=256, kernel_size=3)
         inputs = self.do_separableconv2d(inputs=inputs, filters=256, kernel_size=3, 
-                                        useReLu=False, useMaxPooling=True)
+                                        useReLu=False, useMaxPooling=False)
         short_cut = self.do_conv2d(inputs=short_cut, filters=256, kernel_size=1, 
-                                    useReLu=False, useMaxPooling=True) 
+                                    useReLu=False, useMaxPooling=False) 
         inputs = self.add([inputs, short_cut])
 
         inputs = self.do_separableconv2d(inputs=inputs, filters=768, kernel_size=3)
@@ -62,13 +62,13 @@ class Xception:
     def build_exit_flow(self, inputs):
         short_cut = inputs
 
-        inputs = self.do_separableconv2d(inputs=inputs, filters=768, kernel_size=3)
-        inputs = self.do_separableconv2d(inputs=inputs, filters=1024, kernel_size=3, useReLu=False)
-        short_cut = self.do_conv2d(inputs=short_cut, filters=1024, kernel_size=1, useReLu=False) 
+        inputs = self.do_separableconv2d(inputs=inputs, filters=512, kernel_size=3)
+        inputs = self.do_separableconv2d(inputs=inputs, filters=512, kernel_size=3, useReLu=False)
+        short_cut = self.do_conv2d(inputs=short_cut, filters=512, kernel_size=1, useReLu=False) 
         inputs = self.add([inputs, short_cut], useReLu=False)
         
-        inputs = self.do_separableconv2d(inputs=inputs, filters=1536, kernel_size=3)
-        inputs = self.do_separableconv2d(inputs=inputs, filters=2048, kernel_size=3)
+        inputs = self.do_separableconv2d(inputs=inputs, filters=512, kernel_size=3)
+        inputs = self.do_separableconv2d(inputs=inputs, filters=512, kernel_size=3)
         
         return inputs
 

@@ -14,6 +14,10 @@ print(tf.__version__)
 
 ds  = DataSet()
 
+def plot_model():
+    xception =  Xception()
+    xception.plot_model()
+
 def show_ds_info():
     ds.show_dataset_description()
 
@@ -23,5 +27,7 @@ def do_training(epochs, lr):
 
 
 if __name__ == '__main__':
-    show_ds_info()
-    do_training(epochs=2, lr=1e-3)
+    # show_ds_info()
+    # do_training(epochs=2, lr=1e-3)
+
+    plot_model()
