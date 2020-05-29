@@ -12,7 +12,7 @@ class Train:
     def __init__(self):
         self.ds = DataSet(batch_size=-1)
 
-    def train(self, lr=1e-3, epochs = 2):
+    def train(self, lr=0.003, epochs = 100):
         train = tfds.as_numpy(self.ds.load_trainset())
         test = tfds.as_numpy(self.ds.load_testset())
        
@@ -28,7 +28,7 @@ class Train:
             save_best_only=True)
 
         model = xception.get_model()
-        adam = tf.keras.optimizers.Adam(lr=lr)
+        adam = tf.keras.optimizers.SGD(lr=lr)
 
         model.compile(optimizer=adam, loss='sparse_categorical_crossentropy',
                        metrics=['accuracy'])    
@@ -36,7 +36,7 @@ class Train:
         history = model.fit(train['image'], train['label'], 
                             validation_data=(test['image'], test['label']),
                             epochs=epochs, callbacks=[model_checkpoint_callback], 
-                            verbose=2)
+                            verbose=2, batch_size=64)
 
         model_json = model.to_json()
         with open(str(model_dir.joinpath('model.json')), "w") as json_file:
