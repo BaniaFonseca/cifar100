@@ -11,20 +11,26 @@ class Visualization(DataSet):
         self.cols = cols
 
     def view_test_images(self):
-        self.view_images(dataset=self.test)
+        self.view_images(dataset=tfds.as_numpy(self.test))
 
     def view_train_images(self):
-        self.view_images(dataset=self.train)
+        self.view_images(dataset=tfds.as_numpy(self.train))
 
     def view_images(self, dataset):
         plt.figure(figsize=(32, 32))
-        for batch in tfds.as_numpy(dataset):
-            for n, example in enumerate(zip(batch['image'], batch['label']), 1):
-                image, label = example
+        ds = None
+        for batch in dataset:
+            ds = zip(batch['image'], batch['label'])
+            break
+
+        for n, example in enumerate(ds, 1):
+                image, label = example 
                 plt.subplot(self.rows, self.cols, n)
                 plt.imshow(image)
                 plt.xticks([])
                 plt.yticks([])
                 plt.xlabel(label)
-            break
+
+                if n == self.rows*self.cols:
+                    break
         plt.show()    

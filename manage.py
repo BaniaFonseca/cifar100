@@ -29,5 +29,4 @@ def do_training(epochs, lr):
 if __name__ == '__main__':
     # show_ds_info()
     # do_training(epochs=2, lr=1e-3)
-
-    plot_model()
+    # plot_model()
